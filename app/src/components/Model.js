@@ -137,43 +137,46 @@ const Model = () => {
                 console.log("Values set for target classes");
                 console.log(TARGET_CLASSES_VALUES);
                 console.log(SECONDARY_TARGET_CLASSES_VALUES);
-
-                // Adding data to firestore
-                auth.onAuthStateChanged((user) => {
-                  if (user) {
-                    // user signed in
-                    const { serverTimestamp } = firebase.firestore.FieldValue;
-                    db.collection("analyze")
-                      .add({
-                        uid: user.uid,
-                        createdAt: serverTimestamp(),
-                        normal: TARGET_CLASSES_VALUES[0],
-                        tumorous: TARGET_CLASSES_VALUES[1],
-                        meningioma: SECONDARY_TARGET_CLASSES_VALUES[0],
-                        glioma: SECONDARY_TARGET_CLASSES_VALUES[1],
-                        pituitary: SECONDARY_TARGET_CLASSES_VALUES[2],
-                      })
-                      .then((docRef) => {
-                        console.log("Document written with ID: ", docRef.id);
-                      })
-                      .catch((error) => {
-                        console.error("Error adding document: ", error);
-                      });
-                  } else {
-                    // not signed in
-                    console.log("Please sign in first");
-                  }
-                });
               }}
-              className="btn btn-primary float-right"
+              className="btn btn-primary float-left"
             >
               Check
             </button>
+            <button
+              className="btn btn-primary float-right"
+              onClick={async function () {
+                console.log("Adding results to firestore");
+                // Adding data to firestore
+                if (auth.currentUser != null) {
+                  // user signed in
+                  const { serverTimestamp } = firebase.firestore.FieldValue;
+                  db.collection("analyze")
+                    .add({
+                      uid: auth.currentUser.uid,
+                      user: auth.currentUser.displayName,
+                      createdAt: serverTimestamp(),
+                      normal: TARGET_CLASSES_VALUES[0],
+                      tumorous: TARGET_CLASSES_VALUES[1],
+                      meningioma: SECONDARY_TARGET_CLASSES_VALUES[0],
+                      glioma: SECONDARY_TARGET_CLASSES_VALUES[1],
+                      pituitary: SECONDARY_TARGET_CLASSES_VALUES[2],
+                    })
+                    .then((docRef) => {
+                      console.log("Document written with ID: ", docRef.id);
+                    })
+                    .catch((error) => {
+                      console.error("Error adding document: ", error);
+                    });
+                } else {
+                  // not signed in
+                  console.log("Please sign in first");
+                }
+              }}
+            >
+              Save
+            </button>
           </div>
         </div>
-        <br />
-        <br />
-        <br />
         <div className="row">
           <div className="col-12">
             <h2 className="ml-3">Image</h2>
