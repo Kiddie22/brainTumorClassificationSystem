@@ -1,6 +1,7 @@
 import React from "react";
 import firebase from "firebase/app";
 
+const auth = firebase.auth();
 const db = firebase.firestore();
 
 const History = () => {
@@ -24,11 +25,24 @@ const History = () => {
       });
   }, []);
 
-  console.log(list);
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      // user signed in
+      document.getElementById("varTxt").hidden = true;
+      document.getElementById("varTable").hidden = false;
+    } else {
+      // not signed in
+      document.getElementById("varTxt").hidden = false;
+      document.getElementById("varTable").hidden = true;
+    }
+  });
 
   return (
     <div>
-      <table className="table table-dark">
+      <p id="varTxt">
+        <h1>Sign In First</h1>
+      </p>
+      <table id="varTable" className="table table-dark">
         <thead>
           <tr>
             <th scope="col">Name</th>

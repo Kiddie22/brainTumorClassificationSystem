@@ -30,8 +30,8 @@ $(document).ready(async function () {
 });
 
 const Model = () => {
-  const TARGET_CLASSES_VALUES = [];
-  const SECONDARY_TARGET_CLASSES_VALUES = [];
+  var TARGET_CLASSES_VALUES = [];
+  var SECONDARY_TARGET_CLASSES_VALUES = [];
 
   return (
     <>
@@ -89,19 +89,22 @@ const Model = () => {
 
                 console.log("Image PreProcessed...");
 
+                TARGET_CLASSES_VALUES = [];
+                SECONDARY_TARGET_CLASSES_VALUES = [];
+
                 // yes/no prediction
                 let predictions = await modeljson.predict(tensor).data();
-                let results = Array.from(predictions)
-                  .map(function (p, i) {
-                    // this is Array.map
-                    return {
-                      probability: p,
-                      className: TARGET_CLASSES[i],
-                    };
-                  })
-                  .sort(function (a, b) {
-                    return b.probability - a.probability;
-                  });
+                let results = Array.from(predictions).map(function (p, i) {
+                  // this is Array.map
+                  return {
+                    probability: p,
+                    className: TARGET_CLASSES[i],
+                  };
+                });
+                console.log(results);
+                // .sort(function (a, b) {
+                //   return b.probability - a.probability;
+                // });
 
                 $("#prediction-list").empty();
                 results.forEach(function (p) {
@@ -113,17 +116,16 @@ const Model = () => {
 
                 // classification prediction
                 predictions = await secondmodeljson.predict(tensor).data();
-                results = Array.from(predictions)
-                  .map(function (p, i) {
-                    // this is Array.map
-                    return {
-                      probability: p,
-                      className: SECONDARY_TARGET_CLASSES[i],
-                    };
-                  })
-                  .sort(function (a, b) {
-                    return b.probability - a.probability;
-                  });
+                results = Array.from(predictions).map(function (p, i) {
+                  // this is Array.map
+                  return {
+                    probability: p,
+                    className: SECONDARY_TARGET_CLASSES[i],
+                  };
+                });
+                // .sort(function (a, b) {
+                //   return b.probability - a.probability;
+                // });
 
                 $("#second-prediction-list").empty();
                 results.forEach(function (p) {
