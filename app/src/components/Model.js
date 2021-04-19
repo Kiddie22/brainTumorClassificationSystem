@@ -167,6 +167,7 @@ const Model = () => {
                   // not signed in
                   console.log("Please sign in first");
                 }
+                window.alert("Results saved to collection")
               }}
             >
               Save

@@ -46,9 +46,9 @@ const History = () => {
       </p>
       <table id="varTable" className="table table-dark table-striped">
         <thead>
-          <tr>
-            <th colSpan="4" className="mx-auto">
-              {username}
+          <tr className="tableTitle">
+            <th colSpan="5" className="mx-auto">
+              {username}'s scan history
             </th>
           </tr>
           <tr>
@@ -75,6 +75,7 @@ const History = () => {
                   {toDateTime(doc.createdAt.seconds).toLocaleTimeString()}
                 </td>
 
+                {/* short circuit conditioning to fetch prediction type and accuracy results */}
                 {normal > tumorous ? (
                   <>
                     <td>Normal</td>
@@ -87,12 +88,17 @@ const History = () => {
                   </>
                 )}
 
-                {meningioma > glioma && meningioma > pituitary ? (
-                  <td> meningioma </td>
-                ) : glioma > meningioma && glioma > pituitary ? (
-                  <td> glioma </td>
+                {/* short circuit conditioning to fetch classification type */}
+                {tumorous > normal ? (
+                  meningioma > glioma && meningioma > pituitary ? (
+                    <td> Meningioma </td>
+                  ) : glioma > meningioma && glioma > pituitary ? (
+                    <td> Glioma </td>
+                  ) : (
+                    <td> Pituitary </td>
+                  )
                 ) : (
-                  <td>pituitary</td>
+                  <td> - </td>
                 )}
               </tr>
             );
