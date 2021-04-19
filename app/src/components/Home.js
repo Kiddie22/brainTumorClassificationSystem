@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import History from "./History";
 
 const Home = () => {
   return (
@@ -89,7 +88,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <History />
     </>
   );
 };

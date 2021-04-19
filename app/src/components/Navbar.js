@@ -26,7 +26,7 @@ const Navbar = () => {
           </li>
 
           <li>
-            <Link to="/vision"> OUR VISION</Link>
+            <Link to="/history"> SCAN HISTORY</Link>
           </li>
 
           <li>

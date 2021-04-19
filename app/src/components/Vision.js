@@ -3,7 +3,16 @@ import React from "react";
 const Vision = () => {
   return (
     <div className="vision" id="vision">
-      <div id="parallax-image-3">
+      {/* <div id="parallax-image-3"> */}
+      <div
+        style={{
+          backgroundColor: "black",
+          backgroundSize: "cover",
+          height: "auto",
+          paddingTop: "100px",
+          paddingBottom: "100px",
+        }}
+      >
         <div className="container border py-5">
           <svg
             xmlns="http://www.w3.org/2000/svg"

@@ -36,7 +36,7 @@ const Model = () => {
   return (
     <>
       <br />
-      <div className="container" style={{ marginBottom: "208px" }}>
+      <div className="container" style={{ marginBottom: "280px" }}>
         <div className="row">
           <div className="col-12">
             <div className="progress progress-bar progress-bar-striped progress-bar-animated mb-2">
@@ -102,9 +102,6 @@ const Model = () => {
                   };
                 });
                 console.log(results);
-                // .sort(function (a, b) {
-                //   return b.probability - a.probability;
-                // });
 
                 $("#prediction-list").empty();
                 results.forEach(function (p) {
@@ -123,9 +120,6 @@ const Model = () => {
                     className: SECONDARY_TARGET_CLASSES[i],
                   };
                 });
-                // .sort(function (a, b) {
-                //   return b.probability - a.probability;
-                // });
 
                 $("#second-prediction-list").empty();
                 results.forEach(function (p) {

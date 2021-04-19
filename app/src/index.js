@@ -10,6 +10,7 @@ import Footer from "./components/Footer";
 import Home from "./components/Home";
 import Model from "./components/Model";
 import Team from "./components/Team";
+import History from "./components/History";
 
 ReactDOM.render(
   <Router>
@@ -20,6 +21,9 @@ ReactDOM.render(
       </Route>
       <Route path="/analyze">
         <Model />
+      </Route>
+      <Route path="/history">
+        <History />
       </Route>
       <Route path="/team">
         <Team />

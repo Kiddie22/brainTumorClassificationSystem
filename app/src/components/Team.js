@@ -1,12 +1,12 @@
 import React from "react";
 import About from "./About";
+import Vision from "./Vision";
 import Card from "./Card";
 
 const Team = () => {
   return (
     <>
-      <About />
-      {/* <Vision /> */}
+      <Vision />
       <div id="parallax-image-2">
         <div className="container">
           <br />
@@ -61,8 +61,9 @@ const Team = () => {
           </div>
         </div>
       </div>
+      <About />
     </>
   );
-}
+};
 
 export default Team;
