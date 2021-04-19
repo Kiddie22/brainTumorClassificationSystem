@@ -8,13 +8,13 @@ const Team = () => {
       <About />
       {/* <Vision /> */}
       <div id="parallax-image-2">
-        <div class="container">
+        <div className="container">
           <br />
-          <h1 class="text-center text-color">Our Team</h1>
-          <h6 class="text-center text-color">-Team Thambapanni-</h6>
+          <h1 className="text-center text-color">Our Team</h1>
+          <h6 className="text-center text-color">-Team Thambapanni-</h6>
           <br />
 
-          <div class="row justify-content-center">
+          <div className="row justify-content-center">
             <Card
               img={"images/Rasula.jpg"}
               name={"Rasula Yadithya"}

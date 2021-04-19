@@ -20,7 +20,7 @@ const SECONDARY_TARGET_CLASSES = {
 let modeljson;
 let secondmodeljson;
 $(document).ready(async function () {
-  //Progress bar and Loading of the Model
+  //Progress bar and loading of model
   $(".progress-bar").show();
   console.log("Loading models...");
   modeljson = await tf.loadLayersModel("model/model.json");
@@ -52,7 +52,7 @@ const Model = () => {
               className="form-control border-0"
               type="file"
               onChange={function () {
-                //Selecting the Image Function
+                //Selecting the image
                 console.log("Images Selected...");
 
                 let reader = new FileReader();
