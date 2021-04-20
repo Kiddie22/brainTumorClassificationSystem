@@ -16,7 +16,7 @@ const Team = () => {
 
           <div className="row justify-content-center">
             <Card
-              img={"images/Rasula.jpg"}
+              img={"images/rasula.jpg"}
               name={"Rasula Yadithya"}
               role={"Team Leader"}
               link={"https://www.linkedin.com/in/rasula-yadithya"}
