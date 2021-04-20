@@ -26,8 +26,7 @@ const Home = () => {
               </h1>
               <br />
               <p className="text-center text-color py-5">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-                commodo ligula eget dolor.
+                Scan your MRI's to obtain easy to understand results
               </p>
             </div>
 
