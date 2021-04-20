@@ -65,14 +65,13 @@ const Home = () => {
                 <path d="M6.94 7.44l4.95-2.83-2.83 4.95-4.949 2.83 2.828-4.95z" />
               </svg>
               <h1 className="text-center text-primary py-5">
-                Tumor
+                Scan
                 <br />
-                Location
+                History
               </h1>
               <br />
               <p className="text-center text-color py-5">
-                Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean
-                commodo ligula eget dolor.
+                Have all your previous scan data safely stored
               </p>
             </div>
 
