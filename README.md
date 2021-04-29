@@ -1,4 +1,4 @@
-# NeuroScan - A brain tumor classification and segmentation application
+# A brain tumor classification and segmentation application
 
 This project is an initiative for the SDGP module at IIT.
 It includes,
