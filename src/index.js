@@ -3,13 +3,13 @@ import ReactDOM from "react-dom";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import "./index.css";
 import "./styles/style.css";
-import "./styles/style.css";
+import "./styles/style2.css";
 import "./components/fire";
 import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import Home from "./components/Home";
-import Model from "./components/Model";
+import Footer from "./components/Footer";
 import Team from "./components/Team";
+import Model from "./components/Model";
 import History from "./components/History";
 
 ReactDOM.render(

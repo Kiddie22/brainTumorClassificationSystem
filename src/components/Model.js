@@ -2,6 +2,7 @@ import React from "react";
 import $ from "jquery";
 import * as tf from "@tensorflow/tfjs";
 import firebase from "firebase/app";
+import swal from "sweetalert";
 
 const auth = firebase.auth();
 const db = firebase.firestore();
@@ -52,19 +53,25 @@ const Model = () => {
               className="form-control border-0"
               type="file"
               onChange={function () {
-                //Selecting the image
-                console.log("Images Selected...");
+                try {
+                  //Selecting the image
+                  console.log("Images Selected...");
 
-                let reader = new FileReader();
-                reader.onload = function () {
-                  let dataURL = reader.result;
-                  $("#selected-image").attr("src", dataURL);
-                  $("#prediction-list").empty();
-                  $("#second-prediction-list").empty();
-                };
+                  let reader = new FileReader();
+                  reader.onload = function () {
+                    let dataURL = reader.result;
+                    $("#selected-image").attr("src", dataURL);
+                    $("#prediction-list").empty();
+                    $("#second-prediction-list").empty();
+                  };
 
-                let file = $("#image-selector").prop("files")[0];
-                reader.readAsDataURL(file);
+                  let file = $("#image-selector").prop("files")[0];
+                  reader.readAsDataURL(file);
+                  document.getElementById("saveBtn").disabled = true;
+                } catch (err) {
+                  console.log(err);
+                } finally {
+                }
               }}
               multiple
             />
@@ -101,15 +108,21 @@ const Model = () => {
                     className: TARGET_CLASSES[i],
                   };
                 });
-                console.log(results);
 
                 $("#prediction-list").empty();
                 results.forEach(function (p) {
                   TARGET_CLASSES_VALUES.push(p.probability.toFixed(6));
                   $("#prediction-list").append(
-                    `<li>${p.className}: ${p.probability.toFixed(6)}</li>`
+                    `<li>${p.className}: ${(p.probability * 100).toFixed(2)}%</li>`
                   );
                 });
+
+                var skip = false;
+                if (results[0].probability > results[1].probability) {
+                  skip = true;
+                } else {
+                  skip = false;
+                }
 
                 // classification prediction
                 predictions = await secondmodeljson.predict(tensor).data();
@@ -123,27 +136,38 @@ const Model = () => {
 
                 $("#second-prediction-list").empty();
                 results.forEach(function (p) {
-                  SECONDARY_TARGET_CLASSES_VALUES.push(
-                    p.probability.toFixed(6)
-                  );
-                  $("#second-prediction-list").append(
-                    `<li>${p.className}: ${p.probability.toFixed(6)}</li>`
-                  );
+                  if (!skip) {
+                    SECONDARY_TARGET_CLASSES_VALUES.push(
+                      p.probability.toFixed(6)
+                    );
+                    $("#second-prediction-list").append(
+                      `<li>${p.className}: ${(p.probability * 100).toFixed(2)}%</li>`
+                    );
+                  } else {
+                    SECONDARY_TARGET_CLASSES_VALUES.push(0);
+                  }
                 });
-                console.log("Values set for target classes");
-                console.log(TARGET_CLASSES_VALUES);
-                console.log(SECONDARY_TARGET_CLASSES_VALUES);
+
+                document.getElementById("saveBtn").disabled = false;
               }}
               className="btn btn-primary float-left"
             >
               Check
             </button>
             <button
+              id="saveBtn"
               className="btn btn-primary float-right"
               onClick={async function () {
                 console.log("Adding results to firestore");
                 // Adding data to firestore
-                if (auth.currentUser != null) {
+                if (auth.currentUser == null) {
+                  // not signed in
+                  swal({
+                    title: "Sign In first",
+                    text: "You need to sign in before you save your results",
+                    icon: "error",
+                  });
+                } else {
                   // user signed in
                   const { serverTimestamp } = firebase.firestore.FieldValue;
                   db.collection("analyze")
@@ -163,11 +187,12 @@ const Model = () => {
                     .catch((error) => {
                       console.error("Error adding document: ", error);
                     });
-                } else {
-                  // not signed in
-                  console.log("Please sign in first");
+                  swal({
+                    title: "Complete",
+                    text: "Your results have been added to the collection",
+                    icon: "success",
+                  });
                 }
-                window.alert("Results saved to collection")
               }}
             >
               Save

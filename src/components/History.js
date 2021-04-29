@@ -19,7 +19,7 @@ const History = () => {
       if (user) {
         // user signed in
         db.collection("analyze")
-          .where("user", "==", user.displayName)
+          .where("uid", "==", user.uid)
           .get()
           .then((querySnapshot) => {
             const listValue = [];
@@ -40,16 +40,14 @@ const History = () => {
   }, []);
 
   return (
-    <div>
+    <div id="historyDiv">
       <p id="varTxt">
         <h3>Please sign in to view your results</h3>
       </p>
       <table id="varTable" className="table table-dark table-striped">
         <thead>
           <tr className="tableTitle">
-            <th colSpan="5" className="mx-auto">
-              {username}'s scan history
-            </th>
+            <th colSpan="5">{username}'s scan history</th>
           </tr>
           <tr>
             <th scope="col">Scanned date</th>
@@ -60,6 +58,13 @@ const History = () => {
           </tr>
         </thead>
         <tbody>
+          {list.length === 0 ? (
+            <>
+              <td colSpan="5" id="emptyTable">
+                Nothing to display
+              </td>
+            </>
+          ) : null}
           {list.map((doc) => {
             const normal = parseFloat(doc.normal);
             const tumorous = parseFloat(doc.tumorous);
@@ -72,7 +77,9 @@ const History = () => {
                   {toDateTime(doc.createdAt.seconds).toLocaleDateString()}
                 </td>
                 <td>
-                  {toDateTime(doc.createdAt.seconds).toLocaleTimeString()}
+                  {toDateTime(
+                    doc.createdAt.seconds + 19800
+                  ).toLocaleTimeString()}
                 </td>
 
                 {/* short circuit conditioning to fetch prediction type and accuracy results */}

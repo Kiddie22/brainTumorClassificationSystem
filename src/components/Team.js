@@ -1,7 +1,7 @@
 import React from "react";
 import About from "./About";
-import Vision from "./Vision";
 import Card from "./Card";
+import Vision from "./Vision";
 
 const Team = () => {
   return (
@@ -60,8 +60,8 @@ const Team = () => {
             />
           </div>
         </div>
+        <About />
       </div>
-      <About />
     </>
   );
 };

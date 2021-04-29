@@ -13,9 +13,20 @@ code {
     monospace;
 }
 
-.tableTitle th,
-#varTxt {
+#historyDiv {
+  height: 54vh;
+}
+
+.tableTitle th {
+  background-color: #6a7177;
   margin-top: 10px;
   text-align: center;
   font-size: 40px;
+}
+
+#varTxt h3,
+#emptyTable {
+  padding: 50px;
+  font-size: 20px;
+  text-align: center;
 }
